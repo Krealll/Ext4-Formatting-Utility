@@ -1,9 +1,6 @@
 #include "FormattingThread.h"
 
-FormattingThread::FormattingThread(QThread *parent) : QThread(parent)
-{
-
-}
+FormattingThread::FormattingThread(QThread *parent) : QThread(parent){}
 
 void FormattingThread::setThreadFormatManager(FormatManager &value)
 {
