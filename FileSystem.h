@@ -17,6 +17,7 @@ class FileSystem{
             path="";
             this->sb.s_log_block_size=0;
         }
+        ~FileSystem(){}
         void setBlockSize(int size);
         void setBlockCount(int count);
         QString getPath() const;
