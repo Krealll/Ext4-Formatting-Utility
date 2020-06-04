@@ -10,7 +10,7 @@ class FormatManager {
     bool flagFormat =0;             //flag that indicates beginning of formatting
     public:
         FormatManager(){}
-
+        ~FormatManager(){}
         bool initialiseData();      //initializinf file system and allocating
                                     //and marking it super_dirty in order to write it on device at the end
 
