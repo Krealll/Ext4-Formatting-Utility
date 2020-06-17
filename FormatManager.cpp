@@ -19,7 +19,7 @@ void FormatManager::setFlagFormat(bool value)
 bool FormatManager::initialiseData()                            //initializinf file system and allocating
 {                                                               //and marking it super_dirty in order to write it on device at the end
         fileSystem.sb.s_feature_incompat |= EXT4_FEATURE_INCOMPAT_INLINE_DATA;
-        fileSystem.error = ext2fs_initialize("/dev/sdc1", EXT2_FLAG_PRINT_PROGRESS, &fileSystem.sb,
+        fileSystem.error = ext2fs_initialize( fileSystem.path, EXT2_FLAG_PRINT_PROGRESS, &fileSystem.sb,
                        unix_io_manager, &fileSystem.fs);
         if(this->fileSystem.error){
             return false;
@@ -30,13 +30,13 @@ bool FormatManager::initialiseData()                            //initializinf f
 
 bool FormatManager::manageTables()                              //allocating space for inode table and bitmaps
 {
+        blk64_t	blk;
+        dgrp_t	i;
+        int	num;
         fileSystem.error = ext2fs_allocate_tables(fileSystem.fs);
         if(this->fileSystem.error){
             return false;
         }
-        blk64_t	blk;
-        dgrp_t	i;
-        int	num;
         for (i = 0; i < fileSystem.fs->group_desc_count; i++) {
             blk = ext2fs_inode_table_loc(fileSystem.fs, i);
                                                                 // solution for overflow error
